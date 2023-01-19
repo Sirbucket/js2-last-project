@@ -1,13 +1,16 @@
 export class Container {
-    constructor(list) {
-        let itemTemplate = document.querySelector("#controls");
+    constructor(list, name, dispname) {
+        let itemTemplate = document.createElement(name);
+		itemTemplate.innerHTML = `
+			<ol class = ${dispname}>
+				<label class = ${dispname}}></label>
+			</ol>
+        `
         const length = list.length;
-        this.clone = itemTemplate.cloneNode(true);
-        this.cloneContent = this.clone.content.querySelector(".controls");
         for (let i = 0; i < length; ++i) {
-            this.content = this.cloneContent.querySelector(".controlbox"); //Create clone
-            this.oldHTML = this.cloneContent.innerHTML;
-            this.content.appendChild(list[i].element);
+            this.oldHTML = itemTemplate.innerHTML;
+            itemTemplate.appendChild(list[i].element);
         }
+		this.content = itemTemplate
     }
 }

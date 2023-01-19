@@ -7,9 +7,7 @@ export class Typebox {
         this.element = document.createElement(this.name);
         this.element.innerHTML = `
             <label>
-                <input class = "userInput" type = "text">
-                    ${html}
-                </input>
+                ${html}: <input class = "userInput" type = "text"></input>
             </label>
         `
         this.typebox = this.element.querySelector(".userInput")

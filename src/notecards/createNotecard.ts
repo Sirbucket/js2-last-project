@@ -17,8 +17,10 @@ export class NoteCard {
             <label>
                 <div class = "notecard">
                     Word: ${this.word}
-					Definition: ${this.definition}
-	 				Category: ${this.category}
+					
+	 				<span class="def">Definition: ${this.definition}</span>
+	 				
+	  				Category: ${this.category}
                 </div>
             </label>
         `
@@ -30,6 +32,9 @@ export class NoteCard {
             </label>
         `
         this.oldHTML = this.element.innerHTML
-
+		this.element.addEventListener(
+			"click",
+			()=>this.element.classList.toggle('active')
+		);
     }
 }

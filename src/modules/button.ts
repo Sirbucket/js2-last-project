@@ -7,9 +7,7 @@ export class Button {
         this.element = document.createElement(this.name);
         this.element.innerHTML = `
             <label>
-                <button class = "button" type = "button">
-                    ${html}
-                </button>
+                ${html}: <button class = "button" type = "button"></button>
             </label>
         `
         this.button = this.element.querySelector(".button")

@@ -17,8 +17,8 @@ export class ElementMaker {
         return typebox
     }
 
-    newContainer(list, list2) {
-        const container = new Container(list)
+    newContainer(name, dispname, list, list2) {
+        const container = new Container(list, name, dispname)
 
         list2.push(container)
         return container
@@ -31,7 +31,7 @@ export class ElementMaker {
         return element
     }
 
-    newNoteCard (word, list) {
+    newNoteCard(word, list) {
         const notecard = new NoteCard(word)
 
 		list.push(notecard)

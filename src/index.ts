@@ -65,7 +65,7 @@ let search2 = ""
 
 function makeNotecards() {
 	for (let i = 0; i < cardtainer.length; ++i) {
-        app?.removeChild(cardtainer[i].cloneContent)
+        app?.removeChild(cardtainer[i].content)
     }
     NoteCards = []
 	cardtainer = []
@@ -80,15 +80,15 @@ function makeNotecards() {
 		
         maker.newNoteCard(Words[i], NoteCards)
 
-		if (i > 14) {
+		if (!Words[i].category.toLowerCase().match(regex) && i >= 0) {
 			break
 		}
     }
 	
-	maker.newContainer(NoteCards, cardtainer)
+	maker.newContainer("controlbox", "notecards", NoteCards, cardtainer)
 
     for (let i = 0; i < cardtainer.length; ++i) {
-        app?.appendChild(cardtainer[i].cloneContent)
+        app?.appendChild(cardtainer[i].content)
     }
 }
 
@@ -101,7 +101,7 @@ async function buildApp() {
     let definition : string
 	let category : string
 
-    let wordbox = maker.newTypebox("Term", typeboxes).onInput((value) => {
+    let wordbox = maker.newTypebox("Term      ", typeboxes).onInput((value) => {
 		word = value
 
     });
@@ -109,36 +109,40 @@ async function buildApp() {
         definition = value;
     });
 
-	let catbox = maker.newTypebox("Category", typeboxes).onInput((value) => {
+	let catbox = maker.newTypebox("Category  ", typeboxes).onInput((value) => {
 		category = value
 	})
 	let serbox = maker.newTypebox("Search by Name", srcbox).onInput((value) => {
 		search2 = value.toLowerCase()
+		makeNotecards()
 	})
 	let searchbox = maker.newTypebox("Search By Category", srcbox).onInput((value) => {
 		search = value.toLowerCase()
+		makeNotecards()
 	})
 	
     maker.newButton("Add Notecard", buttons).onClick(() => {
 		if ((word || definition || category) == "") return console.log("this is blank")
         let wordObj = createNewWord(word, definition, category);
     	Words.push(wordObj);
-		Words.sort()
 		setData(wordObj.term, wordObj.definition, wordObj.category)
+		makeNotecards()
+
+		wordbox.value = ""
+		defbox.value = ""
+		catbox.value = ""
     });
 
 	let cards = await getData()
 	for (let i = 0; i < cards.data.length; ++i) {
 		Words.push(cards.data[i])
 	}
-	Words.sort()
-	maker.newContainer(typeboxes, container)
-	maker.newContainer(buttons, container)
-	maker.newContainer(srcbox, container)
+	maker.newContainer("controlbox", "controls", typeboxes, container)
+	maker.newContainer("controlbox", "controls", buttons, container)
+	maker.newContainer("controlbox", "controls", srcbox, container)
 	for (let i = 0; i < container.length; ++i) {
-        app?.appendChild(container[i].cloneContent)
+        app?.appendChild(container[i].content)
     }
-	setInterval(makeNotecards, 100)
 }
 
 buildApp();
