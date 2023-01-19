@@ -16,7 +16,9 @@ export class NoteCard {
 		this.oldHTML = `
             <label>
                 <div class = "notecard">
-                    ${this.word} ||| Category: ${this.category}
+                    Word: ${this.word}
+					Definition: ${this.definition}
+	 				Category: ${this.category}
                 </div>
             </label>
         `
@@ -28,16 +30,6 @@ export class NoteCard {
             </label>
         `
         this.oldHTML = this.element.innerHTML
-        this.element.addEventListener("click", () => {
-            for (let i = 0; i < this.callbacks.length; ++i) {
-                let cb = this.callbacks[i]
-                cb()
-            }
-        })
 
-    }
-
-    onClick(cb) {
-        this.callbacks.push(cb)
     }
 }
