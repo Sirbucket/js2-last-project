@@ -79,10 +79,6 @@ function makeNotecards() {
 		}
 		
         maker.newNoteCard(Words[i], NoteCards)
-
-		if (!Words[i].category.toLowerCase().match(regex) && i >= 0) {
-			break
-		}
     }
 	
 	maker.newContainer("controlbox", "notecards", NoteCards, cardtainer)
